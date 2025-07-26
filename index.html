@@ -6,7 +6,7 @@
   <style>
   body {
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #e6f7ff, #f0faff);
+    background: linear-gradient(to right, #f0faff, #ffffff);
     margin: 0;
     padding: 30px 15px;
     display: flex;
@@ -15,58 +15,64 @@
   }
 
   .container {
-    background: #fff;
+    background: #ffffff;
     padding: 30px 40px;
     max-width: 850px;
     width: 100%;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
-    animation: fadeIn 0.6s ease-in;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.8s ease;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
   h1 {
     text-align: center;
-    color: #0077cc;
+    color: #005f99;
     margin-bottom: 30px;
+    font-size: 28px;
   }
 
   .question {
-    background: #f9fcff;
-    padding: 18px 20px;
-    border-radius: 10px;
+    background: #f5fbff;
+    padding: 20px 24px;
+    border-left: 6px solid #cceeff;
+    border-radius: 14px;
     margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0, 153, 255, 0.08);
-    transition: box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 6px 14px rgba(0, 102, 204, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .question:hover {
-    box-shadow: 0 0 16px rgba(0, 153, 255, 0.25);
-    transform: scale(1.01);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 102, 204, 0.18);
   }
 
   .question-title {
     font-weight: 600;
     margin-bottom: 12px;
-    color: #333;
+    color: #003366;
+    font-size: 18px;
   }
 
   label {
     display: flex;
     align-items: center;
+    background: #ffffff;
     margin: 10px 0;
-    font-size: 16px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: background 0.3s;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #d9f0ff;
+    cursor: pointer;
+    transition: background 0.3s ease, border 0.3s ease;
   }
 
   label:hover {
-    background-color: #e6f3ff;
+    background: #e6f7ff;
+    border-color: #99ddff;
   }
 
   input[type="radio"] {
@@ -82,30 +88,31 @@
     margin: 35px auto 15px;
     padding: 16px 40px;
     font-size: 20px;
-    background: linear-gradient(to right, #007acc, #0099ff);
+    background: linear-gradient(to right, #33c3ff, #00aaff);
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 16px;
     cursor: pointer;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(0, 153, 255, 0.2);
     transition: background 0.3s ease, transform 0.2s ease;
   }
 
   button:hover {
-    background: linear-gradient(to right, #005fa3, #008fe6);
-    transform: scale(1.05);
+    background: linear-gradient(to right, #0099dd, #0088cc);
+    transform: scale(1.04);
   }
 
   .result {
     display: none;
     text-align: center;
     font-size: 20px;
-    background: #e0f7ff;
-    border-left: 6px solid #0099cc;
-    padding: 20px;
+    background: #e6faff;
+    border-left: 6px solid #00ccff;
+    padding: 22px;
     margin-top: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 14px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #005c73;
   }
 </style>
 </head>
