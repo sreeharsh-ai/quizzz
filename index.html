@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhakti Movement Quiz</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better aesthetics and responsiveness */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for better scroll on mobile */
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 16px; /* More rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 20px; /* Space from top */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .question-card {
+            background-color: #f9fafb; /* Slightly darker background for question */
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .option-button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.75rem;
+            background-color: #e2e8f0; /* Light gray for options */
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 1rem;
+            color: #334155;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-sizing: border-box;
+        }
+        .option-button:hover:not(.selected):not(.correct):not(.incorrect) {
+            background-color: #d1d8e0;
+            border-color: #94a3b8;
+        }
+        .option-button.selected {
+            background-color: #3b82f6; /* Blue for selected */
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+        .option-button.correct {
+            background-color: #10b981; /* Green for correct */
+            color: #ffffff;
+            border-color: #059669;
+        }
+        .option-button.incorrect {
+            background-color: #ef4444; /* Red for incorrect */
+            color: #ffffff;
+            border-color: #dc2626;
+        }
+        .submit-button {
+            background-color: #4f46e5; /* Indigo for submit */
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            align-self: center; /* Center the button */
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+            border: none;
+        }
+        .submit-button:hover {
+            background-color: #4338ca;
+        }
+        .results-container {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #ecfdf5; /* Light green for results */
+            border-radius: 12px;
+            border: 1px solid #a7f3d0;
+            text-align: center;
+        }
+        .score-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #065f46;
+            margin-bottom: 1rem;
+        }
+        .restart-button {
+            background-color: #06b6d4; /* Cyan for restart */
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 1rem;
+            border: none;
+        }
+        .restart-button:hover {
+            background-color: #0891b2;
+        }
+/* Responsive adjustments */
+        @media (max-width: 640px) {
+            .quiz-container {
+                padding: 1rem;
+                margin-top: 10px;
+            }
+            .question-card {
+                padding: 1rem;
+            }
+            .option-button {
+                font-size: 0.9rem;
+                padding: 0.6rem 0.8rem;
+            }
+            .submit-button {
+                font-size: 1rem;
+                padding: 0.7rem 1.2rem;
+            }
+            .score-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-6">Bhakti Movement Quiz</h1>
+
+        <div id="quiz-section">
+            <div class="question-card">
+                <p id="question-text" class="text-xl sm:text-2xl font-semibold text-gray-700 mb-4"></p>
+                <div id="options-container" class="flex flex-col gap-3">
+                    <!-- Options will be loaded here by JavaScript -->
+                </div>
+            </div>
+
+            <button id="submit-btn" class="submit-button mt-6">Submit Answer</button>
+        </div>
+
+        <div id="results-section" class="results-container hidden">
+            <p id="score-display" class="score-text"></p>
+            <button id="restart-btn" class="restart-button">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Array of quiz questions
+        const questions = [
+            {
+                question: "What was a core idea promoted by the Bhakti movement regarding God?",
+                options: [
+                    "People should call God by different names.",
+                    "God is a single, absolute reality.",
+                    "God is worshipped through elaborate rituals.",
+                    "God only accepts devotion from high castes."
+                ],
+                correctAnswer: 1 // Index of the correct option (0-based)
+            },
+            {
+                question: "Which of the following figures was known for rejecting superstitions?",
+                options: [
+                    "Mirabai",
+                    "Guru Nanak",
+                    "Basavanna",
+                    "All of the above"
+                ],
+                correctAnswer: 3
+            },
+            {
+                question: "Guru Nanak aimed to promote:",
+                options: [
+                    "Strict adherence to caste rules.",
+                    "Equality and social harmony among people.",
+                    "The worship of multiple deities.",
+                    "Exclusively vegetarianism."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "The 'Adi Granth Sahib' is a compilation of the teachings of:",
+                options: [
+                    "Mirabai",
+                    "Kabir",
+                    "Guru Nanak",
+                    "Basavanna"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "What was one of the major contributions of the Bhakti movement in South India?",
+                options: [
+                    "Promotion of Sanskrit as the sole language of worship.",
+                    "Composition of devotional songs in vernacular languages.",
+                    "Exclusion of women from religious practices.",
+                    "Reaffirmation of strict caste hierarchies."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Which famous female Bhakti poetess was a Rajput princess devoted to Krishna?",
+                options: [
+                    "Akka Mahadevi",
+                    "Andal",
+                    "Mirabai",
+                    "Karaikkal Ammayar"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "The Bhakti movement sought to challenge:",
+                options: [
+                    "The concept of monotheism.",
+                    "Discriminatory practices based on caste and gender.",
+                    "The importance of personal devotion.",
+                    "The use of regional languages in worship."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "What was the 'Anubhava Mandapam' associated with Basavanna?",
+                options: [
+                    "A new type of temple.",
+                    "A spiritual forum for discussions and social renewal.",
+                    "A collection of hymns.",
+                    "A place for ritualistic sacrifices."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Kabir's 'Dohas' often emphasized:",
+                options: [
+                    "The need for elaborate temple worship.",
+                    "That God is known by many names but is one reality.",
+                    "The superiority of one religion over others.",
+                    "The importance of pilgrimages."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "The Vira Shaiva movement, championed by Basavanna, focused on:",
+                options: [
+                    "Reinstating the traditional Vedic practices.",
+                    "Promoting social equality and opposing caste discrimination.",
+                    "The worship of Vishnu as the supreme deity.",
+                    "Asceticism and isolation from society."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "According to the text, what was a key impact of the Bhakti movement?",
+                options: [
+                    "It led to the rigidification of the caste system.",
+                    "It brought about progressive changes in India's social and religious spheres.",
+                    "It resulted in widespread religious conflicts.",
+                    "It discouraged the use of music in devotion."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Which of the following is NOT one of the characteristics of the Bhakti movement in South India, as shown in the diagram?",
+                options: [
+                    "Deep devotion to the beloved deity.",
+                    "Exclusive participation of Brahmins.",
+                    "Love and submission to God.",
+                    "Access to all irrespective of caste."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Guru Nanak emphasized the importance of:",
+                options: [
+                    "Remaining detached from worldly affairs.",
+                    "Living honestly and helping others.",
+                    "Performing complex religious rituals.",
+                    "Seeking salvation through intermediaries."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "The Bhakti movement in South India is generally associated with which two groups of poet-saints?",
+                options: [
+                    "Sufis and Vaishnavites",
+                    "Alvars and Nayanars",
+                    "Buddhists and Jains",
+                    "Shaivites and Vaishnavites (excluding Alvars/Nayanars specifically)"
+                ],
+                correctAnswer: 1
+            },
+            {
+            question: "What did Kabir advocate regarding discrimination?",
+                options: [
+                    "He supported caste-based discrimination in religious practices.",
+                    "He was against all kinds of discrimination.",
+                    "He believed discrimination was necessary for social order.",
+                    "He only opposed religious discrimination, not caste."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "What does the anecdote about Guru Nanak and the 'langar' system illustrate?",
+                options: [
+                    "His belief in the importance of wealth.",
+                    "His emphasis on sharing and communal eating.",
+                    "His rejection of all food.",
+                    "His preference for individual worship."
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "What was a major point of emphasis in Basavanna's messages highlighting humanism and equality?",
+                options: [
+                    "The necessity of a priestly class.",
+                    "The importance of birthright for social status.",
+                    "That thought and action are good, and the nation will prosper.",
+                    "The segregation of people based on occupation."
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Which statement best describes the overall impact of the Bhakti movement on Indian society?",
+                options: [
+                    "It reinforced existing social hierarchies.",
+                    "It led to a complete overhaul of the caste system.",
+                    "It challenged established norms and promoted inclusivity.",
+                    "It caused widespread conversion to a single religion."
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Akka Mahadevi was a prominent female figure in the:",
+                options: [
+                    "Alvars movement",
+                    "Nayanars movement",
+                    "Vira Shaiva movement",
+                    "Sufi movement"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "What did the Bhakti poets express through their compositions?",
+                options: [
+                    "Political dissent against rulers.",
+                    "Unwavering devotion to their favourite deity.",
+                    "Instructions for performing elaborate rituals.",
+                    "Scientific theories of the time."
+                ],
+                correctAnswer: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let quizSubmitted = false; // To prevent changing answers after submission
+
+        // Get DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const submitBtn = document.getElementById('submit-btn');
+        const quizSection = document.getElementById('quiz-section');
+        const resultsSection = document.getElementById('results-section');
+        const scoreDisplay = document.getElementById('score-display');
+        const restartBtn = document.getElementById('restart-btn');
+
+        /**
+         * Loads the current question and its options into the quiz interface.
+         * Clears previous options and highlights.
+         */
+        function loadQuestion() {
+            quizSubmitted = false; // Reset submission status for new question
+            selectedAnswer = null; // Clear previous selection
+
+            const currentQuestion = questions[currentQuestionIndex];
+            questionText.textContent = ${currentQuestionIndex + 1}. ${currentQuestion.question};
+            optionsContainer.innerHTML = ''; // Clear previous options
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-button');
+                button.setAttribute('data-index', index); // Store option index
+
+                // Add click listener for selecting options
+                button.addEventListener('click', () => {
+                    if (!quizSubmitted) { // Only allow selection if quiz not submitted
+                        // Remove 'selected' class from all other options
+                        document.querySelectorAll('.option-button').forEach(btn => {
+                            btn.classList.remove('selected');
+                        });
+                        // Add 'selected' class to the clicked option
+                        button.classList.add('selected');
+                        selectedAnswer = index; // Store the selected answer's index
+                    }
+                });
+                optionsContainer.appendChild(button);
+            });
+
+            // Update submit button text
+            if (currentQuestionIndex === questions.length - 1) {
+                submitBtn.textContent = 'Submit Quiz';
+            } else {
+                submitBtn.textContent = 'Next Question';
+            }
+        }
+
+        /**
+         * Checks the selected answer against the correct answer.
+         * Updates the score and highlights correct/incorrect options.
+         */
+        function checkAnswer() {
+            if (selectedAnswer === null) {
+                // Show a message if no answer is selected
+                alert("Please select an answer before proceeding.");
+                return;
+            }
+
+            quizSubmitted = true; // Mark quiz as submitted for this question
+
+            const currentQuestion = questions[currentQuestionIndex];
+            const optionsButtons = document.querySelectorAll('.option-button');
+
+            // Highlight correct and incorrect answers
+            optionsButtons.forEach((button, index) => {
+                const optionIndex = parseInt(button.getAttribute('data-index'));
+                if (optionIndex === currentQuestion.correctAnswer) {
+                    button.classList.add('correct'); // Green for correct answer
+                }
+                if (optionIndex === selectedAnswer && optionIndex !== currentQuestion.correctAnswer) {
+                    button.classList.add('incorrect'); // Red for incorrect selected answer
+                }
+                // Disable all buttons after submission for this question
+                button.disabled = true;
+            });
+
+            // Update score if the answer is correct
+            if (selectedAnswer === currentQuestion.correctAnswer) {
+                score++;
+            }
+
+            // Move to the next question or show results after a short delay
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion(); // Load next question
+                } else {
+                    showResults(); // Show final results
+                }
+            }, 1500); // 1.5 second delay to show highlights
+        }
+
+        /**
+         * Displays the final score and hides the quiz section.
+         */
+        function showResults() {
+            quizSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+            scoreDisplay.textContent = You scored ${score} out of ${questions.length}!;
+        }
+
+        /**
+         * Resets the quiz to its initial state.
+         */
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+            quizSubmitted = false;
+
+            resultsSection.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+            loadQuestion(); // Load the first question
+        }
+        // Event Listeners
+        submitBtn.addEventListener('click', checkAnswer);
+        restartBtn.addEventListener('click', resetQuiz);
+
+        // Initial load of the first question when the page loads
+        document.addEventListener('DOMContentLoaded', lo
