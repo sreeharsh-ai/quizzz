@@ -1,268 +1,692 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Bhakti Movement Quiz</title>
-  <style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #f0faff, #ffffff);
-    margin: 0;
-    padding: 30px 15px;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sreeharsh E K | Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-  .container {
-    background: #ffffff;
-    padding: 30px 40px;
-    max-width: 850px;
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    animation: fadeIn 0.8s ease;
-  }
+        :root {
+            --bg-color: #0d0d0d;
+            --text-color: #f0f0f0;
+            --accent-color: #ff9900;
+            --secondary-accent: #00ffff;
+            --highlight-color: #e0e0e0;
+            --dark-highlight: #444;
+        }
 
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-  h1 {
-    text-align: center;
-    color: #005f99;
-    margin-bottom: 30px;
-    font-size: 28px;
-  }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-  .question {
-    background: #f5fbff;
-    padding: 20px 24px;
-    border-left: 6px solid #cceeff;
-    border-radius: 14px;
-    margin-bottom: 20px;
-    box-shadow: 0 6px 14px rgba(0, 102, 204, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
 
-  .question:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(0, 102, 204, 0.18);
-  }
+        /* --- Header & Hero Section --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+        }
 
-  .question-title {
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #003366;
-    font-size: 18px;
-  }
+        .name-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 10vw;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
 
-  label {
-    display: flex;
-    align-items: center;
-    background: #ffffff;
-    margin: 10px 0;
-    padding: 10px 14px;
-    border-radius: 12px;
-    border: 1px solid #d9f0ff;
-    cursor: pointer;
-    transition: background 0.3s ease, border 0.3s ease;
-  }
+        .name-part {
+            position: relative;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
 
-  label:hover {
-    background: #e6f7ff;
-    border-color: #99ddff;
-  }
+        .name-part:hover {
+            transform: translateY(-5px);
+        }
 
-  input[type="radio"] {
-    width: 18px;
-    height: 18px;
-    margin-right: 12px;
-    accent-color: #007acc;
-    cursor: pointer;
-  }
+        .name-part span {
+            display: inline-block;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
 
-  button {
-    display: block;
-    margin: 35px auto 15px;
-    padding: 16px 40px;
-    font-size: 20px;
-    background: linear-gradient(to right, #33c3ff, #00aaff);
-    color: white;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 153, 255, 0.2);
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
+        .name-part:nth-child(2) span {
+            color: var(--accent-color);
+        }
 
-  button:hover {
-    background: linear-gradient(to right, #0099dd, #0088cc);
-    transform: scale(1.04);
-  }
+        .name-part:nth-child(3) span {
+            color: var(--secondary-accent);
+        }
 
-  .result {
-    display: none;
-    text-align: center;
-    font-size: 20px;
-    background: #e6faff;
-    border-left: 6px solid #00ccff;
-    padding: 22px;
-    margin-top: 30px;
-    border-radius: 14px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    color: #005c73;
-  }
-</style>
+        .name-part:hover span {
+            transform: translateY(-10px);
+        }
+
+        .e-creative, .k-creative {
+            display: inline-block;
+            position: relative;
+            animation: pulse-border 2s infinite ease-in-out;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--text-color);
+        }
+
+        .e-creative::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-accent));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: text-fill 5s infinite ease-in-out;
+        }
+
+        .k-creative::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(45deg, var(--secondary-accent), var(--accent-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: text-fill 5s infinite ease-in-out reverse;
+        }
+
+        @keyframes pulse-border {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes text-fill {
+            0% { transform: scaleX(0); transform-origin: left; }
+            50% { transform: scaleX(1); transform-origin: left; }
+            51% { transform: scaleX(1); transform-origin: right; }
+            100% { transform: scaleX(0); transform-origin: right; }
+        }
+
+        .ticker-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            overflow: hidden;
+            background-color: var(--dark-highlight);
+            border-radius: 50px;
+            padding: 10px 0;
+            z-index: 10;
+        }
+
+        .ticker {
+            display: flex;
+            animation: ticker-move 15s linear infinite;
+        }
+
+        .ticker span {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0 20px;
+            white-space: nowrap;
+            color: var(--text-color);
+        }
+
+        @keyframes ticker-move {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .photo-container {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 40px 0;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .photo-container img {
+            width: 90%;
+            height: 90%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--bg-color);
+            z-index: 1;
+        }
+
+        .photo-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+        }
+
+        .ring-path {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 0;
+            animation: wave-path 5s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes wave-path {
+            0% { stroke-dashoffset: 0; }
+            50% { stroke-dashoffset: 200; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        /* The main visual element */
+        .color-waveform {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to right, 
+                var(--accent-color) 0%, 
+                var(--secondary-accent) 25%, 
+                var(--accent-color) 50%, 
+                var(--secondary-accent) 75%, 
+                var(--accent-color) 100%);
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23000" fill-opacity="1" d="M0,192L48,170.7C96,149,192,107,288,106.7C384,107,480,149,576,170.7C672,192,768,192,864,170.7C960,149,1056,107,1152,96C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            mask-size: cover;
+            animation: wave-motion 20s linear infinite;
+            opacity: 0.5;
+            z-index: 5;
+        }
+
+        @keyframes wave-motion {
+            from { transform: translateX(0); }
+            to { transform: translateX(-1440px); }
+        }
+
+        /* --- Sections & Content --- */
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-accent));
+        }
+
+        .grid-container {
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .card {
+            background-color: var(--dark-highlight);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.5s;
+        }
+
+        .card:hover .card-image {
+            filter: grayscale(0%);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .card-content p {
+            font-size: 0.9rem;
+            color: var(--highlight-color);
+        }
+
+        /* Hidden detailed content */
+        .details-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .details-content {
+            background-color: var(--dark-highlight);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: var(--text-color);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .details-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-accent);
+        }
+
+        .details-content p {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .details-content ul {
+            list-style-type: '⚡ ';
+            padding-left: 20px;
+        }
+
+        .details-content li {
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Section */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-accent));
+            color: var(--bg-color);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-color), 0 0 40px var(--secondary-accent);
+        }
+        
+        .contact-button svg {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 2rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--dark-highlight);
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: var(--highlight-color);
+        }
+
+        .footer-links a {
+            color: var(--highlight-color);
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .name-container {
+                font-size: 15vw;
+                flex-direction: column;
+            }
+            .name-part {
+                margin: 5px 0;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .name-container {
+                font-size: 20vw;
+            }
+            .ticker span {
+                font-size: 1rem;
+            }
+            .photo-container {
+                width: 200px;
+                height: 200px;
+            }
+            .details-content {
+                padding: 20px;
+            }
+            .details-content h2 {
+                font-size: 2rem;
+            }
+        }
+
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Bhakti Movement – Quiz</h1>
-    <form id="quizForm"></form>
-    <button onclick="submitQuiz()">Submit</button>
-    <div id="result" class="result"></div>
-  </div>
 
-  <script>
-    const quizData = [
-      {
-        q: "What was a core idea promoted by the Bhakti movement regarding God?",
-        options: ["People should call God by different names.", "God is a single, absolute reality.", "God is worshipped through elaborate rituals.", "God only accepts devotion from high castes."],
-        answer: 1
-      },
-      {
-        q: "Which of the following figures was known for rejecting superstitions?",
-        options: ["Mirabai", "Guru Nanak", "Basavanna", "All of the above"],
-        answer: 3
-      },
-      {
-        q: "Guru Nanak aimed to promote:",
-        options: ["Strict adherence to caste rules.", "Equality and social harmony among people.", "The worship of multiple deities.", "Exclusively vegetarianism."],
-        answer: 1
-      },
-      {
-        q: "The 'Adi Granth Sahib' is a compilation of the teachings of:",
-        options: ["Mirabai", "Kabir", "Guru Nanak", "Basavanna"],
-        answer: 2
-      },
-      {
-        q: "What was one of the major contributions of the Bhakti movement in South India?",
-        options: ["Promotion of Sanskrit as the sole language of worship.", "Composition of devotional songs in vernacular languages.", "Exclusion of women from religious practices.", "Reaffirmation of strict caste hierarchies."],
-        answer: 1
-      },
-      {
-        q: "Which famous female Bhakti poetess was a Rajput princess devoted to Krishna?",
-        options: ["Akka Mahadevi", "Andal", "Mirabai", "Karaikkal Ammayar"],
-        answer: 2
-      },
-      {
-        q: "The Bhakti movement sought to challenge:",
-        options: ["The concept of monotheism.", "Discriminatory practices based on caste and gender.", "The importance of personal devotion.", "The use of regional languages in worship."],
-        answer: 1
-      },
-      {
-        q: "What was the 'Anubhava Mandapam' associated with Basavanna?",
-        options: ["A new type of temple.", "A spiritual forum for discussions and social renewal.", "A collection of hymns.", "A place for ritualistic sacrifices."],
-        answer: 1
-      },
-      {
-        q: "Kabir's 'Dohas' often emphasized:",
-        options: ["The need for elaborate temple worship.", "That God is known by many names but is one reality.", "The superiority of one religion over others.", "The importance of pilgrimages."],
-        answer: 1
-      },
-      {
-        q: "The Vira Shaiva movement, championed by Basavanna, focused on:",
-        options: ["Reinstating the traditional Vedic practices.", "Promoting social equality and opposing caste discrimination.", "The worship of Vishnu as the supreme deity.", "Asceticism and isolation from society."],
-        answer: 1
-      },
-      {
-        q: "According to the text, what was a key impact of the Bhakti movement?",
-        options: ["It led to the rigidification of the caste system.", "It brought about progressive changes in India's social and religious spheres.", "It resulted in widespread religious conflicts.", "It discouraged the use of music in devotion."],
-        answer: 1
-      },
-      {
-        q: "Which of the following is NOT one of the characteristics of the Bhakti movement in South India, as shown in the diagram?",
-        options: ["Deep devotion to the beloved deity.", "Exclusive participation of Brahmins.", "Love and submission to God.", "Access to all irrespective of caste."],
-        answer: 1
-      },
-      {
-        q: "Guru Nanak emphasized the importance of:",
-        options: ["Remaining detached from worldly affairs.", "Living honestly and helping others.", "Performing complex religious rituals.", "Seeking salvation through intermediaries."],
-        answer: 1
-      },
-      {
-        q: "The Bhakti movement in South India is generally associated with which two groups of poet-saints?",
-        options: ["Sufis and Vaishnavites", "Alvars and Nayanars", "Buddhists and Jains", "Shaivites and Vaishnavites (excluding Alvars/Nayanars specifically)"],
-        answer: 1
-      },
-      {
-        q: "What did Kabir advocate regarding discrimination?",
-        options: ["He supported caste-based discrimination in religious practices.", "He was against all kinds of discrimination.", "He believed discrimination was necessary for social order.", "He only opposed religious discrimination, not caste."],
-        answer: 1
-      },
-      {
-        q: "What does the anecdote about Guru Nanak and the 'langar' system illustrate?",
-        options: ["His belief in the importance of wealth.", "His emphasis on sharing and communal eating.", "His rejection of all food.", "His preference for individual worship."],
-        answer: 1
-      },
-      {
-        q: "What was a major point of emphasis in Basavanna's messages highlighting humanism and equality?",
-        options: ["The necessity of a priestly class.", "The importance of birthright for social status.", "That thought and action are good, and the nation will prosper.", "The segregation of people based on occupation."],
-        answer: 2
-      },
-      {
-        q: "Which statement best describes the overall impact of the Bhakti movement on Indian society?",
-        options: ["It reinforced existing social hierarchies.", "It led to a complete overhaul of the caste system.", "It challenged established norms and promoted inclusivity.", "It caused widespread conversion to a single religion."],
-        answer: 2
-      },
-      {
-        q: "Akka Mahadevi was a prominent female figure in the:",
-        options: ["Alvars movement", "Nayanars movement", "Vira Shaiva movement", "Sufi movement"],
-        answer: 2
-      },
-      {
-        q: "What did the Bhakti poets express through their compositions?",
-        options: ["Political dissent against rulers.", "Unwavering devotion to their favourite deity.", "Instructions for performing elaborate rituals.", "Scientific theories of the time."],
-        answer: 1
-      }
-    ];
+    <main>
+        <section class="hero" id="home">
+            <div class="name-container">
+                <span class="name-part">SREEHARS</span>
+                <span class="e-creative name-part">H</span>
+                <span class="name-part"> E </span>
+                <span class="k-creative name-part">K</span>
+            </div>
+            <div class="ticker-container">
+                <div class="ticker">
+                    <span>Aspiring Data Analyst</span>
+                    <span>Creative Thinker</span>
+                    <span>Problem Solver</span>
+                    <span>Code Enthusiast</span>
+                    <span>Aspiring Data Analyst</span>
+                    <span>Creative Thinker</span>
+                    <span>Problem Solver</span>
+                    <span>Code Enthusiast</span>
+                </div>
+            </div>
 
-    const form = document.getElementById("quizForm");
+            <div class="photo-container">
+                <svg class="photo-ring" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path class="ring-path" d="M50,2 A48,48 0 1,1 50,98 A48,48 0 1,1 50,2 Z" fill="none" stroke="url(#ring-gradient)" stroke-width="4"/>
+                    <defs>
+                        <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ff0077"/>
+                            <stop offset="25%" style="stop-color:#9900ff"/>
+                            <stop offset="50%" style="stop-color:#00ffff"/>
+                            <stop offset="75%" style="stop-color:#ff0077"/>
+                            <stop offset="100%" style="stop-color:#9900ff"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <img src="your_photo.jpg" alt="Sreeharsh E K Profile" />
+                </div>
+            <p><strong>Thalassery, Kannur, Kerala, India</strong></p>
+            <div class="color-waveform"></div>
+        </section>
 
-    quizData.forEach((q, index) => {
-      const questionDiv = document.createElement("div");
-      questionDiv.classList.add("question");
+        <section class="container" id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="grid-container">
+                <div class="card" onclick="showDetails('about-details')">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop" alt="Coding Image" class="card-image">
+                    <div class="card-content">
+                        <h3>My Story</h3>
+                        <p>A peek into my professional journey and passions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      const title = document.createElement("div");
-      title.classList.add("question-title");
-      title.innerText = `${index + 1}. ${q.q}`;
-      questionDiv.appendChild(title);
+        <section class="container" id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="grid-container">
+                <div class="card" onclick="showDetails('education-details')">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" alt="Education Image" class="card-image">
+                    <div class="card-content">
+                        <h3>Academic Path</h3>
+                        <p>My formal education and academic pursuits.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      q.options.forEach((opt, i) => {
-        const label = document.createElement("label");
-        label.innerHTML = `
-          <input type="radio" name="q${index}" value="${i}"> ${opt}
-        `;
-        questionDiv.appendChild(label);
-      });
+        <section class="container" id="skills">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="grid-container">
+                <div class="card" onclick="showDetails('skills-details')">
+                    <img src="https://images.unsplash.com/photo-1518770660439-46243ee7d4d7?q=80&w=2070&auto=format&fit=crop" alt="Skills Image" class="card-image">
+                    <div class="card-content">
+                        <h3>Technical Skills</h3>
+                        <p>Programming languages and tools I use.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="showDetails('soft-skills-details')">
+                    <img src="https://images.unsplash.com/photo-1497215729549-9b7f584e031c?q=80&w=2070&auto=format&fit=crop" alt="Soft Skills Image" class="card-image">
+                    <div class="card-content">
+                        <h3>Soft Skills</h3>
+                        <p>My personal strengths and working style.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      form.appendChild(questionDiv);
-    });
+        <section class="container" id="certifications">
+            <h2 class="section-title">Certificates</h2>
+            <div class="grid-container">
+                <div class="card" onclick="showDetails('cert-details')">
+                    <img src="https://images.unsplash.com/photo-1549490349-86433628e847?q=80&w=2070&auto=format&fit=crop" alt="Certificate Image" class="card-image">
+                    <div class="card-content">
+                        <h3>Certificates</h3>
+                        <p>View my completed professional courses.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    function submitQuiz() {
-      let score = 0;
-      quizData.forEach((q, i) => {
-        const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if (selected && parseInt(selected.value) === q.answer) {
-          score++;
+        <section class="container" id="contact">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-form">
+                <a href="mailto:sreeharshek0@gmail.com" class="contact-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2l-8 5-8-5v12h16V6z"/>
+                    </svg>
+                    Email Me
+                </a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/sreeharsh-e-k" target="_blank" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.763s.784-1.763 1.75-1.763 1.75.79 1.75 1.763-.783 1.763-1.75 1.763zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="https://github.com/sreeharsh-ai" target="_blank" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.809 1.305 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.607.801.576 4.765-1.589 8.197-6.095 8.197-11.389 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/sreeharsh_25/" target="_blank" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07c3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.646.07-4.85.07s-3.585-.012-4.85-.07c-3.254-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.646-.07-4.85s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.646-.07 4.85-.07zm0-2.163c-3.956 0-4.468.019-6.054.087-4.402.203-6.183 2.005-6.386 6.386-.068 1.586-.087 2.098-.087 6.054s.019 4.468.087 6.054c.203 4.381 2.005 6.182 6.386 6.386 1.586.068 2.098.087 6.054.087s4.468-.019 6.054-.087c4.381-.203 6.182-2.005 6.386-6.386.068-1.586.087-2.098.087-6.054s-.019-4.468-.087-6.054c-.203-4.381-2.005-6.182-6.386-6.386-1.586-.068-2.098-.087-6.054-.087zm0 6.843c-2.855 0-5.158 2.304-5.158 5.158s2.303 5.158 5.158 5.158 5.158-2.304 5.158-5.158-2.303-5.158-5.158-5.158zm0 8.431c-1.802 0-3.273-1.472-3.273-3.273s1.471-3.273 3.273-3.273c1.801 0 3.273 1.472 3.273 3.273s-1.472 3.273-3.273 3.273zm-5.234-10.43c.791 0 1.433-.642 1.433-1.433s-.642-1.433-1.433-1.433-1.433.642-1.433 1.433.642 1.433 1.433 1.433z"/></svg>
+                </a>
+                <a href="https://x.com/Sreeharsh_" target="_blank" aria-label="X (formerly Twitter)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.895-.97-2.173-1.821-3.593-1.821-3.571 0-6.47 2.9-6.47 6.47 0 .509.058 1.009.171 1.496-5.385-.275-10.198-2.868-13.436-6.816-.554.956-.874 2.073-.874 3.253 0 2.253 1.149 4.244 2.897 5.418-.849-.025-1.649-.262-2.352-.644v.08c0 3.154 2.238 5.783 5.195 6.391-.548.149-1.127.23-1.725.23-.424 0-.834-.041-1.233-.117.828 2.571 3.242 4.444 6.131 4.441-2.261 1.76-5.091 2.81-8.196 2.81-.532 0-1.053-.031-1.566-.092 2.91 1.861 6.362 2.955 10.045 2.955 12.083 0 18.661-10.015 18.661-18.661l-.001-.527c1.156-.831 2.152-1.87 2.955-3.052z"/></svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sreeharsh E K. All Rights Reserved.</p>
+        <p>A portfolio by a creative thinker.</p>
+    </footer>
+
+    <div id="about-details" class="details-popup">
+        <div class="details-content">
+            <span class="close-btn" onclick="hideDetails()">&#10005;</span>
+            <h2>My Story</h2>
+            <p>I'm Sreeharsh E K, a second-year B.Tech Computer Science Engineering student (2024-2028). I'm currently expanding my expertise by completing a professional course in data analytics. My skills span programming languages like Python, C, and Java, as well as web development. I am a passionate and curious individual, constantly exploring new technological fields. My work is driven by a blend of disciplined coding and creative problem-solving, always aiming to build something unique and impactful.</p>
+            <p><strong>Personal Touch:</strong> I thrive on creative thinking and leadership, and I'm always eager to learn and forge new connections. This portfolio is a reflection of my belief in a creative and cinematic approach to technology.</p>
+        </div>
+    </div>
+
+    <div id="education-details" class="details-popup">
+        <div class="details-content">
+            <span class="close-btn" onclick="hideDetails()">&#10005;</span>
+            <h2>Academic Path</h2>
+            <p><strong>B.Tech in Computer Science Engineering</strong></p>
+            <p>Vimal Jyothi Engineering College, Chemperi</p>
+            <p>Expected Graduation: 2028</p>
+        </div>
+    </div>
+
+    <div id="skills-details" class="details-popup">
+        <div class="details-content">
+            <span class="close-btn" onclick="hideDetails()">&#10005;</span>
+            <h2>Technical Skills</h2>
+            <ul>
+                <li><strong>Programming Languages:</strong> Python, Java, C</li>
+                <li><strong>Web Development:</strong> HTML, CSS, JavaScript</li>
+                <li><strong>Data & Analytics:</strong> Data Analytics, Data Structures & Algorithms (DSA), Spreadsheets, SQL</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="soft-skills-details" class="details-popup">
+        <div class="details-content">
+            <span class="close-btn" onclick="hideDetails()">&#10005;</span>
+            <h2>Soft Skills</h2>
+            <ul>
+                <li>Creative Thinking</li>
+                <li>Leadership</li>
+                <li>Communication Skills</li>
+                <li>Eagerness to learn new things and build new connections</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="cert-details" class="details-popup">
+        <div class="details-content">
+            <span class="close-btn" onclick="hideDetails()">&#10005;</span>
+            <h2>Certifications</h2>
+            <p>Here are some of the professional courses I have completed.</p>
+            <img src="Coursera 73SYIIEM2EXR.jpg" alt="Coursera Certificate" style="width:100%; max-width:500px; display:block; margin: 20px auto; border-radius: 10px;">
+            <p style="text-align: center; font-style: italic; font-size: 0.9em;">(Please note: For the web, it's best to convert your PDF to a high-quality JPG image to display it directly.)</p>
+            </div>
+    </div>
+    
+    <script>
+        function showDetails(id) {
+            document.getElementById(id).style.display = 'flex';
         }
-      });
 
-      const resultDiv = document.getElementById("result");
-      resultDiv.style.display = "block";
-      resultDiv.innerHTML = `<strong>You scored ${score} out of ${quizData.length}.</strong>`;
-    }
-  </script>
+        function hideDetails() {
+            const popups = document.querySelectorAll('.details-popup');
+            popups.forEach(popup => {
+                popup.style.display = 'none';
+            });
+        }
+    </script>
+
 </body>
 </html>
