@@ -1,43 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sreeharsh Website</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sreeharsh E K — Portfolio</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Zilla+Slab:wght@700&display=swap" rel="stylesheet">
+<style>
+/* -------- Base & Theme -------- */
+:root{
+  --bg:#0b0b0f; --card:#0f1117; --muted:#9aa4b2; --text:#e6e9ef; --ring1:#8b5cf6; --ring2:#06b6d4; --ring3:#22c55e; --ring4:#f59e0b; --ring5:#ef4444;
+  --pill-bg: rgba(255,255,255,.06); --pill-bd: rgba(255,255,255,.1);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(1200px 600px at 20% -10%, #1a1f2e 0%, transparent 60%), 
+              radial-gradient(900px 500px at 120% 30%, #1b2b2b 0%, transparent 60%),
+              var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height:1.6;
+}
+.container{max-width:1140px;margin-inline:auto;padding:20px}
+a{color:#c1e3ff;text-decoration:none}
+a:hover{opacity:.9}
+
+/* -------- Nav -------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(10px);
+  background: rgba(11,11,15,.6);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+.brand-badge{width:34px;height:34px;border-radius:10px;padding:2px;background:conic-gradient(var(--ring1),var(--ring2),var(--ring3),var(--ring4),var(--ring5),var(--ring1))}
+.brand-badge>span{display:block;width:100%;height:100%;border-radius:8px;background:var(--bg)}
+.nav-links{display:none;gap:18px;color:var(--muted)}
+.nav-links a{color:var(--muted)}
+@media(min-width:640px){.nav-links{display:flex}}
+
+/* -------- Hero: Name Animation -------- */
+.hero{padding:36px 20px 10px}
+.tagline{color:var(--muted);text-align:center;margin-top:10px}
+.name-wrap{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;align-items:center}
+.name{
+  display:flex;gap:.1em; font-weight:800;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height:1; letter-spacing:.02em;
+  position:relative;
+  font-family: "Zilla Slab", serif; /* bold serif vibe */
+}
+.name .ch{
+  display:inline-block; position:relative;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,.35));
+  background: linear-gradient(90deg, var(--ring1), var(--ring2), var(--ring3), var(--ring4), var(--ring5));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: floatY 3.6s ease-in-out infinite;
+}
+.name .ch:nth-child(odd){animation-duration:3.1s}
+.name .ch:nth-child(2){animation-delay:.06s}
+.name .ch:nth-child(3){animation-delay:.12s}
+.name .ch:nth-child(4){animation-delay:.18s}
+.name .ch:nth-child(5){animation-delay:.24s}
+.name .ch:nth-child(6){animation-delay:.30s}
+.name .ch:nth-child(7){animation-delay:.36s}
+.name .ch:nth-child(8){animation-delay:.42s}
+.name .ch:nth-child(9){animation-delay:.48s}
+.name .gloss{
+  position:absolute; left:0; top:0; height:100%; width:100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.25) 10%, transparent 20%);
+  background-size: 200% 100%;
+  animation: gloss 3.2s linear infinite;
+  pointer-events:none;
+  mix-blend-mode: screen;
+}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes gloss{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.hero-grid{
+  margin-top:24px; display:grid; gap:18px; align-items:center;
+  grid-template-columns: 1fr; 
+}
+@media(min-width:900px){.hero-grid{grid-template-columns: 1.1fr .9fr}}
+.pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.pill{padding:8px 14px;border-radius:999px;background:var(--pill-bg);border:1px solid var(--pill-bd);color:#d6d9df;font-size:14px}
+
+/* Photo frame */
+.face{
+  display:flex;justify-content:center
+}
+.face-wrap{
+  position:relative; width:min(64vw, 340px); aspect-ratio:1/1; border-radius:50%;
+  padding:6px; background: conic-gradient(var(--ring1),var(--ring2),var(--ring3),var(--ring4),var(--ring5),var(--ring1));
+  box-shadow: 0 10px 40px rgba(0,0,0,.45), 0 0 80px rgba(139,92,246,.25) inset;
+  animation: spinSlow 18s linear infinite;
+}
+.face-wrap::after{
+  /* subtle ambient glow */
+  content:""; position:absolute; inset:-14px; filter: blur(18px); opacity:.22; border-radius:50%;
+  background: conic-gradient(var(--ring1),var(--ring2),var(--ring3),var(--ring4),var(--ring5),var(--ring1));
+  z-index:-1;
+}
+.face-inner{
+  width:100%; height:100%; border-radius:50%; padding:6px; background: var(--bg); display:flex; align-items:center; justify-content:center;
+  animation: spinSlow 18s linear reverse infinite;
+}
+.face-inner img{
+  width:100%; height:100%; border-radius:50%; object-fit:cover; 
+  clip-path: circle(46% at 50% 50%);
+  transform: scale(1.02);
+}
+@keyframes spinSlow{from{transform: rotate(0)}to{transform: rotate(360deg)}}
+
+/* -------- Ticker -------- */
+.ticker-wrap{margin-top:22px; overflow:hidden; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08); padding:10px 0}
+.ticker{display:flex;gap:28px;white-space:nowrap;animation:scroll 22s linear infinite}
+.ticker .pill{background:transparent;border-color:rgba(255,255,255,.18)}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* -------- Sections / Cards -------- */
+section{padding:34px 0}
+.section-title{font-weight:800;letter-spacing:.02em;margin-bottom:10px;font-size:26px}
+.cards{display:grid;gap:18px}
+@media(min-width:700px){.cards{grid-template-columns:repeat(2,1fr)}}
+.card{
+  background: var(--card); border:1px solid rgba(255,255,255,.09); border-radius:18px; overflow:hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  cursor:pointer; transition: transform .35s ease, box-shadow .35s ease;
+}
+.card:hover{transform:translateY(-4px); box-shadow: 0 18px 60px rgba(0,0,0,.45)}
+.card .media{aspect-ratio:16/9;background:#0b0c11}
+.card .media img{width:100%;height:100%;object-fit:cover}
+.card .body{padding:16px}
+.card .title{font-weight:700}
+.card .blurb{color:var(--muted);font-size:14px;margin-top:4px}
+
+/* -------- Modal -------- */
+.modal{position:fixed; inset:0; z-index:80; display:none; align-items:end}
+@media(min-width:640px){.modal{align-items:center}}
+.modal.open{display:flex}
+.modal-back{position:absolute; inset:0; background:rgba(0,0,0,.7)}
+.modal-box{
+  position:relative; z-index:2; width:100%; max-width:820px; margin-inline:auto;
+  background:var(--card); border:1px solid rgba(255,255,255,.1); border-radius:20px; overflow:hidden;
+  box-shadow: 0 22px 90px rgba(0,0,0,.6);
+}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.modal-content{padding:16px;color:#d7dae0}
+.btn{background:var(--pill-bg);border:1px solid var(--pill-bd);color:#f3f4f6;border-radius:10px;padding:8px 14px}
+.btn:hover{filter:brightness(1.1)}
+/* skeleton loader for Projects placeholder */
+.skel{background:linear-gradient(90deg,#1a1c25 25%,#1f2230 37%,#1a1c25 63%);background-size:400% 100%;animation:skel 1.2s ease-in-out infinite;border-radius:12px}
+@keyframes skel{0%{background-position:100% 0}100%{background-position:-100% 0}}
+
+/* -------- Contact -------- */
+.contact-grid{display:grid;gap:18px}
+@media(min-width:760px){.contact-grid{grid-template-columns:2fr 1fr}}
+.card-lite{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px}
+
+/* -------- Footer -------- */
+footer{color:#98a2b3;font-size:13px;padding:28px 0;border-top:1px solid rgba(255,255,255,.06);margin-top:20px}
+
+/* -------- Accessibility helpers -------- */
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+</style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h1 class="glow-text">Welcome to My Website 🚀</h1>
-      <p class="tagline">Built with ❤️ by Sreeharsh</p>
-      <button class="btn" onclick="scrollDown()">Explore</button>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="nav-inner container">
+    <div class="brand">
+      <span class="brand-badge"><span></span></span>
+      <span>Sreeharsh EK</span>
+    </div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="container hero" id="about">
+  <div class="name-wrap">
+    <!-- Moving creative letters -->
+    <div class="name" aria-label="Sreeharsh E K">
+      <span class="ch">S</span><span class="ch">r</span><span class="ch">e</span><span class="ch">e</span>
+      <span class="ch">h</span><span class="ch">a</span><span class="ch">r</span><span class="ch">s</span><span class="ch">h</span>
+      <span class="ch">&nbsp;</span><span class="ch">E</span><span class="ch">&nbsp;</span><span class="ch">K</span>
+      <span class="gloss" aria-hidden="true"></span>
+    </div>
+  </div>
+  <p class="tagline">Aspiring Data Analyst &amp; Creative Thinker — Thalassery, Kannur, Kerala, India</p>
+
+  <div class="hero-grid">
+    <div>
+      <div class="pills" style="margin-bottom:16px">
+        <span class="pill">Python</span><span class="pill">Java</span><span class="pill">C</span>
+        <span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">SQL</span>
+        <span class="pill">Spreadsheets</span><span class="pill">Web Development</span><span class="pill">DSA</span>
+      </div>
+
+      <p style="color:#c8ced8;max-width:60ch;margin-inline:auto;text-align:center">
+        I’m a second-year B.Tech CSE student (2024–2028) at Vimal Jyothi Engineering College, Chemperi.
+        Currently completing a Data Analytics Professional Certification. I love combining logic and creativity to build
+        clean, useful solutions — from data cleaning to visualization and insights.
+      </p>
+    </div>
+
+    <!-- Photo with creative multicolor ring -->
+    <div class="face">
+      <div class="face-wrap" title="Sreeharsh E K">
+        <div class="face-inner">
+          <img src="assets/PXL_20250525_072058874.PORTRAIT%20(1).jpg" alt="Sreeharsh profile photo" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moving skills/professions ticker -->
+  <div class="ticker-wrap" aria-label="skills ticker">
+    <div class="ticker">
+      <span class="pill">Data Analyst</span>
+      <span class="pill">Python</span>
+      <span class="pill">Java</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">SQL</span>
+      <span class="pill">Data Visualization</span>
+      <span class="pill">Web Development</span>
+      <span class="pill">DSA</span>
+      <span class="pill">Problem Solver</span>
+
+      <!-- duplicate for seamless loop -->
+      <span class="pill">Data Analyst</span>
+      <span class="pill">Python</span>
+      <span class="pill">Java</span>
+      <span class="pill">HTML</span>
+      <span class="pill">CSS</span>
+      <span class="pill">SQL</span>
+      <span class="pill">Data Visualization</span>
+      <span class="pill">Web Development</span>
+      <span class="pill">DSA</span>
+      <span class="pill">Problem Solver</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HIGHLIGHTS (image-first tiles) ===== -->
+<main class="container" id="highlights">
+  <section>
+    <h2 class="section-title">Highlights</h2>
+    <p style="color:var(--muted);margin-bottom:14px">Tap any card to view details. (Projects area is ready but hidden until you add them.)</p>
+    <div class="cards">
+
+      <!-- Work (Placeholder, no projects displayed yet) -->
+      <article class="card" data-modal="work">
+        <div class="media"><div class="skel" style="width:100%;height:100%"></div></div>
+        <div class="body">
+          <div class="title">Previous Work (coming soon)</div>
+          <div class="blurb">Reserved space for case studies — data cleaning → viz → insights.</div>
+        </div>
+      </article>
+
+      <!-- Skills -->
+      <article class="card" data-modal="skills">
+        <div class="media">
+          <img src="assets/skills-cover.jpg" alt="Skills cover (optional image)" onerror="this.style.display='none'">
+        </div>
+        <div class="body">
+          <div class="title">Skills</div>
+          <div class="blurb">Python • Java • C • Web Dev • Data Analytics • DSA • SQL • Spreadsheets</div>
+        </div>
+      </article>
+
+      <!-- Education -->
+      <article class="card" data-modal="edu">
+        <div class="media">
+          <img src="assets/education-cover.jpg" alt="Education cover (optional image)" onerror="this.style.display='none'">
+        </div>
+        <div class="body">
+          <div class="title">Education</div>
+          <div class="blurb">B.Tech CSE — Vimal Jyothi Engineering College, Chemperi (2024–2028)</div>
+        </div>
+      </article>
+
+      <!-- Certificates -->
+      <article class="card" data-modal="cert">
+        <div class="media">
+          <img src="assets/Coursera-73SYIIEM2EXR.png" alt="Certificate preview (PNG)" onerror="this.style.display='none'">
+        </div>
+        <div class="body">
+          <div class="title">Certification</div>
+          <div class="blurb">Data Analytics Professional Certificate</div>
+        </div>
+      </article>
+
     </div>
   </section>
 
-  <!-- About Section -->
-  <section class="about">
-    <h2>About This Website</h2>
-    <p>
-      This is a modern, animated, and interactive site — upgraded with smooth
-      transitions, moving backgrounds, and cool features.
-    </p>
+  <!-- ===== Contact ===== -->
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <div class="card-lite">
+        <p>Want to collaborate or view my work? Reach out via email or socials.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px">
+          <a class="btn" href="mailto:sreeharshek0@gmail.com">Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/sreeharsh-e-k" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn" href="https://github.com/sreeharsh-ai" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="https://x.com/Sreeharsh_" target="_blank" rel="noreferrer">X</a>
+          <a class="btn" href="https://www.instagram.com/sreeharsh_25/" target="_blank" rel="noreferrer">Instagram</a>
+        </div>
+      </div>
+      <div class="card-lite">
+        <div style="font-weight:700;margin-bottom:6px">Details</div>
+        <div style="font-size:14px;color:#cfd3da">
+          <div>Email: <a href="mailto:sreeharshek0@gmail.com">sreeharshek0@gmail.com</a></div>
+          <div>Location: Thalassery, Kannur, Kerala, India</div>
+          <div>Languages: English, Malayalam (native)</div>
+        </div>
+      </div>
+    </div>
   </section>
+</main>
 
-  <!-- Cards Section -->
-  <section class="cards">
-    <div class="card">🌟 Smooth Animations</div>
-    <div class="card">🔥 Interactive UI</div>
-    <div class="card">⚡ Lightweight Code</div>
-  </section>
+<!-- ===== FOOTER ===== -->
+<footer class="container">
+  <div>© <span id="year"></span> Sreeharsh E K</div>
+  <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9aa4b2">
+    Built with HTML/CSS/JS — animated letters, ticker, and modals. Optimized for phones & laptops.
+  </div>
+</footer>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Sreeharsh. All rights reserved.</p>
-  </footer>
+<!-- ===== MODALS ===== -->
+<div class="modal" id="modal-work" aria-hidden="true" role="dialog" aria-labelledby="modal-work-title">
+  <div class="modal-back" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <div id="modal-work-title" style="font-weight:700">Previous Work (coming soon)</div>
+      <button class="btn" data-close>Close</button>
+    </div>
+    <div class="modal-content">
+      <div class="skel" style="height:180px;margin-bottom:12px"></div>
+      <p>When you’re ready, add case studies here: problem → dataset → SQL/Python → viz → insights. You can drop images into <code>assets/</code> and reference them in this section.</p>
+    </div>
+  </div>
+</div>
 
-  <script src="script.js"></script>
+<div class="modal" id="modal-skills" aria-hidden="true" role="dialog" aria-labelledby="modal-skills-title">
+  <div class="modal-back" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <div id="modal-skills-title" style="font-weight:700">Skills</div>
+      <button class="btn" data-close>Close</button>
+    </div>
+    <div class="modal-content">
+      <ul style="margin:0;padding-left:18px">
+        <li><strong>Programming:</strong> Python, Java, C</li>
+        <li><strong>Web:</strong> HTML, CSS, JavaScript (basics)</li>
+        <li><strong>Analytics:</strong> Data cleaning, EDA, visualization, insights</li>
+        <li><strong>Tools:</strong> Spreadsheets, SQL</li>
+        <li><strong>Soft skills:</strong> Creative thinking, leadership, communication, eagerness to learn</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-edu" aria-hidden="true" role="dialog" aria-labelledby="modal-edu-title">
+  <div class="modal-back" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <div id="modal-edu-title" style="font-weight:700">Education</div>
+      <button class="btn" data-close>Close</button>
+    </div>
+    <div class="modal-content">
+      <p><strong>B.Tech in Computer Science Engineering</strong><br/>Vimal Jyothi Engineering College, Chemperi (2024–2028)</p>
+      <p>Focus areas: programming, data analytics, problem solving.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-cert" aria-hidden="true" role="dialog" aria-labelledby="modal-cert-title">
+  <div class="modal-back" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <div id="modal-cert-title" style="font-weight:700">Certification</div>
+      <button class="btn" data-close>Close</button>
+    </div>
+    <div class="modal-content">
+      <p>Google/Coursera Data Analytics Professional Certificate.</p>
+      <p>
+        <a class="btn" href="assets/Coursera-73SYIIEM2EXR.pdf" target="_blank" rel="noreferrer">Open PDF</a>
+      </p>
+      <img src="assets/Coursera-73SYIIEM2EXR.png" alt="Certificate preview (PNG)" style="width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.1)" onerror="this.style.display='none'">
+    </div>
+  </div>
+</div>
+
+<script>
+/* year */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* open/close modals */
+const map = {
+  work: 'modal-work',
+  skills: 'modal-skills',
+  edu: 'modal-edu',
+  cert: 'modal-cert'
+};
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('click', ()=>{
+    const id = card.getAttribute('data-modal');
+    const m = document.getElementById(map[id]);
+    if(!m) return;
+    m.classList.add('open');
+    m.setAttribute('aria-hidden','false');
+  });
+});
+document.querySelectorAll('[data-close], .modal-back').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    document.querySelectorAll('.modal.open').forEach(m=>{
+      m.classList.remove('open');
+      m.setAttribute('aria-hidden','true');
+    });
+  });
+});
+window.addEventListener('keydown', (e)=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal.open').forEach(m=>{
+      m.classList.remove('open');
+      m.setAttribute('aria-hidden','true');
+    });
+  }
+});
+
+/* smooth scroll for nav */
+document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(!el) return;
+    window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+  });
+});
+
+/* Bonus: subtle bounce on name when hovering letters */
+document.querySelectorAll('.name .ch').forEach((ch, i)=>{
+  ch.addEventListener('mouseenter', ()=>{
+    ch.animate(
+      [{transform:'translateY(0) scale(1)'},{transform:'translateY(-10px) scale(1.12)'},{transform:'translateY(0) scale(1)'}],
+      {duration:350, easing:'cubic-bezier(.2,.8,.2,1)'}
+    );
+  });
+});
+</script>
 </body>
 </html>
